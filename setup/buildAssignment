@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+# VERSION: 0.2.0
+# Author Seb Blair @ CompEng0001
+# Date: 31/01/2024
+
+# Notes:
+#      - 0.2.0
+#         - Removed cargo and rust
+#      - 0.1.0
+#          - fully functional
+
+USAGE()
+{
+    echo -e "Supply no arguments.\n"
+    exit 1
+}
+
+if [ $# -gt 0 ]; then
+    USAGE
+
+    exit 1
+fi
+
+
+bash setup/.masterFiles/run
+
+#bash setup/makeDir "_Directory"
+
+echo -e "\n Setup complete.....\n"

@@ -1,0 +1,117 @@
+#! /usr/bin/env bash
+
+# Set the number of files from the user input
+num_files=$((400 + RANDOM%500))
+count=0
+
+# Create the main directory
+main_directory="_Directory"
+mkdir -p "$main_directory"
+
+
+# Function to generate a random number between 3 and 5
+generate_random_number() {
+    echo $((3 + RANDOM % 3))
+}
+
+# Function to generate a specific number of subdirectories
+generate_subdirectories() {
+    local parent_directory=$1
+    local num_subdirectories=$(generate_random_number)  # Adjust the range as needed
+    local subdirectories=()
+
+    for ((i = 1; i <= num_subdirectories; i++)); do
+        subdirectory="$parent_directory/subdirectory_$i"
+        mkdir -p "$subdirectory"
+        subdirectories+=("$subdirectory")
+    done
+
+    # Shuffle the list of subdirectories
+    shuf <<<"${subdirectories[*]}"
+}
+
+# Function to generate a specific number of subsubdirectories
+generate_subsubdirectories() {
+    local parent_directory=$1
+    local num_subsubdirectories=$(generate_random_number)  # Adjust the range as needed
+    local subsubdirectories=()
+
+    for ((i = 1; i <= num_subsubdirectories; i++)); do
+        subsubdirectory="$parent_directory/subsubdirectory_$i"
+        mkdir -p "$subsubdirectory"
+        subsubdirectories+=("$subsubdirectory")
+    done
+
+    # Shuffle the list of subsubdirectories
+    shuf <<<"${subsubdirectories[*]}"
+}
+
+# Function to generate a random set of characters and numbers
+generate_random_string() {
+    length=$((3 + RANDOM % 15))
+    tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
+}
+
+generate_files_and_directories() {
+    local directories=("$@")
+
+    for ((i = 1; i <= $num_files; i++)); do
+        directory=${directories[RANDOM % ${#directories[@]}]}
+        extension=${RANDOM_EXTENSIONS[RANDOM % ${#RANDOM_EXTENSIONS[@]}]}
+        random_string=$(generate_random_string)
+        filename="${random_string}.$extension"
+        cp ./setup/.masterFiles/example.$extension "$directory/$filename"
+        count=$count+1
+        if [ $count == $num_files ];then
+            break
+        fi
+
+    done
+}
+
+# Generate the directory structure and files
+subdirectories=($(generate_subdirectories "$main_directory"))
+
+# Generate the directory structure and files
+RANDOM_EXTENSIONS=("png" "jpg" "dat" "sh" "txt" "dat")
+
+for subdirectory in "${subdirectories[@]}"; do
+    subsubdirectories=($(generate_subsubdirectories "$subdirectory"))
+    all_directories=("$subdirectory" "${subsubdirectories[@]}")
+    generate_files_and_directories "${all_directories[@]}"
+done
+
+total_file_count=$(find _Directory/*/*/* -type f | wc -l)
+
+num_files_to_change=$(awk -v tfc="$total_file_count" 'BEGIN {r = tfc * 0.007;  printf "%.0f\n", r}')
+
+# Initialize an array to store unique file paths
+unique_files=()
+
+# Loop until we have the desired number of unique files
+while [ ${#unique_files[@]} -lt $num_files_to_change ]; do
+    # Pick a file randomly
+    random_file=$(find _Directory/*/*/* -type f | shuf -n 1)
+
+    # Check if the file is not already in the array
+    if [[ ! " ${unique_files[@]} " =~ " ${random_file} " ]]; then
+        unique_files+=("$random_file")
+    fi
+done
+
+# Change the file extensions for the selected files
+for file in "${unique_files[@]}"; do
+    original_extension=$(echo "$file" | awk -F'.' '{print $NF}')
+    new_extension=${RANDOM_EXTENSIONS[RANDOM % ${#RANDOM_EXTENSIONS[@]}]}
+
+    # Ensure the new extension is different from the original
+    while [ "$new_extension" == "$original_extension" ]; do
+        new_extension=${RANDOM_EXTENSIONS[RANDOM % ${#RANDOM_EXTENSIONS[@]}]}
+    done
+
+    # Swap extensions
+    mv "$file" "${file%.*}.$new_extension"
+
+done
+
+echo "Directory structure and files distributed randomly amongst _Directory."
