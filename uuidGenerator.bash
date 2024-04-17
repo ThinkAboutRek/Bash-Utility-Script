@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Log file
+# Log file 
 LOG_FILE="uuid_generator.log"
 
 # Check if log file exists, if not, create it
