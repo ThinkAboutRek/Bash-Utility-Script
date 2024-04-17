@@ -23,50 +23,38 @@ categorize_directory() {
     local dir="$1"
     echo "Directory: $dir" >> "$LOG_FILE"
 
-    # Initialize file type count associative array
+    # Initialize file type count associative array and total size
     declare -A file_type_count
-
-    # List all files and directories in the given directory
-    local files=$(find "$dir" -maxdepth 1 -type f)
-    local dirs=$(find "$dir" -maxdepth 1 -type d)
-
-    # Count number of files of each type and calculate collective size
-    # Also find shortest and largest filename
     local total_size=0
-    local shortest_name=""
-    local longest_name=""
-    for file in $files; do
-        # Get file type and size
+
+    # Use find with -print0 to handle filenames with spaces or new lines safely
+    while IFS= read -r -d '' file; do
         local file_type=$(get_file_type "$file")
-        local file_size=$(du -h "$file" | cut -f1)
+        local file_size=$(stat --format="%s" "$file")  # Get file size in bytes
 
         # Count number of files of each type
         ((file_type_count["$file_type"]++))
 
         # Update total size
-        ((total_size += $(du -b "$file" | cut -f1)))
+        ((total_size += file_size))
 
-        # Update shortest and longest filename
-        if [ -z "$shortest_name" ] || [ ${#file} -lt ${#shortest_name} ]; then
-            shortest_name="$file"
-        fi
-        if [ -z "$longest_name" ] || [ ${#file} -gt ${#longest_name} ]; then
-            longest_name="$file"
-        fi
-    done
+        # Debug output
+        # echo "Processing file: $file, Size: $file_size" >> "$LOG_FILE"
+
+    done < <(find "$dir" -maxdepth 1 -type f -print0)
 
     # Output number of files of each type and collective size
     for file_type in "${!file_type_count[@]}"; do
         echo "$file_type: ${file_type_count["$file_type"]} files" >> "$LOG_FILE"
     done
-    echo "Total space used: $(numfmt --to=iec $total_size)" >> "$LOG_FILE"
 
-    # Output shortest and longest filename
-    echo "Shortest filename: $shortest_name" >> "$LOG_FILE"
-    echo "Longest filename: $longest_name" >> "$LOG_FILE"
+    # Use numfmt to format the total size correctly
+    local formatted_size=$(numfmt --to=iec $total_size)
+    echo "Total space used: $formatted_size" >> "$LOG_FILE"
 
     echo "" >> "$LOG_FILE"
 }
+
 
 # Function to determine file type based on extension
 get_file_type() {
@@ -94,7 +82,7 @@ log_script_commands "$@"
 DIR="$1"
 
 if [ ! -d "$DIR" ]; then
-    echo "Error: Directory '$DIR' does not exist."
+    echo "Error: Directory '$DIR' does not exist." >&2
     exit 1
 fi
 
@@ -103,9 +91,6 @@ if [ ! -f "$LOG_FILE" ]; then
 fi
 
 # Loop through each subdirectory in the specified directory
-for sub_dir in "$DIR"/*; do
-    if [ -d "$sub_dir" ]; then
-        categorize_directory "$sub_dir"
-    fi
+find "$DIR" -maxdepth 1 -type d -print0 | while IFS= read -r -d '' sub_dir; do
+    categorize_directory "$sub_dir"
 done
-
