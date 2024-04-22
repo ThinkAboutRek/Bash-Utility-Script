@@ -1,0 +1,91 @@
+User: jovyan logged in at Mon Apr 22 08:31:40 AM UTC 2024
+Script command: uuid 10
+Main script PID: 159
+Child script PID: 163
+3251e492-5bea-3595-c678-e13b5c474005
+78643a33-2644-4108-ae90-52cbe16020d1
+220dac68-96f4-333c-e6b8-90d8d9209c2c
+a3bdd492-3fd1-41f2-a83c-e3c21ab7790e
+ace44ff0-9e7c-3981-7852-77b8ea17a4e6
+3a96d720-053e-49e3-a3f0-4b11549d8320
+933752ac-ff56-37c6-e5dd-52984544b9b8
+39e06988-fc63-44c8-aed4-cd07a644e7a1
+480adab8-e437-33b1-5c3c-ead837ff55c1
+12e6a2c8-2e4f-4358-aa43-145ebc9f7356
+f2cfdcd4-0d65-31cd-b1c8-03d086349748
+d1703e50-81a1-4f2f-a863-b1d2d58ea5fd
+1db0cbe5-435b-3a88-9895-6869f89b57a4
+65fc01cd-53bc-4bfb-a417-8fa149383727
+6be97952-f6f8-3efb-93ce-e39dc6ca9c14
+0867eb91-5f43-4cb7-a437-0b4a5b79d24a
+74045784-508b-3253-cce3-82e025c3dbb5
+d8e061f0-8747-43f7-aa10-bc789bac6ec2
+4b5c2934-db13-3110-6496-9ec835e6b878
+ff499eff-e50f-4223-a0ba-2bfdf9accb46
+User: jovyan logged in at Mon Apr 22 08:32:04 AM UTC 2024
+Script command: directory _Directory
+Main script PID: 287
+Child script PID: 290
+Analyzing Directory: _Directory
+  Total space used: 58M
+  Shortest file name length: , Longest file name length: 
+Analyzing Directory: _Directory/subdirectory_4
+  Total space used: 11M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_4/subsubdirectory_3
+  Total space used: 2.7M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_4/subsubdirectory_1
+  Total space used: 2.8M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_4/subsubdirectory_2
+  Total space used: 3.0M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_2
+  Total space used: 12M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_2/subsubdirectory_3
+  Total space used: 2.9M
+  Shortest file name length: 7, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_2/subsubdirectory_1
+  Total space used: 2.9M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_2/subsubdirectory_2
+  Total space used: 2.7M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_3
+  Total space used: 12M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_3/subsubdirectory_3
+  Total space used: 3.0M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_3/subsubdirectory_1
+  Total space used: 2.7M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_3/subsubdirectory_2
+  Total space used: 2.7M
+  Shortest file name length: 7, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_1
+  Total space used: 12M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_1/subsubdirectory_3
+  Total space used: 3.2M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_1/subsubdirectory_1
+  Total space used: 3.4M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_1/subsubdirectory_2
+  Total space used: 2.6M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_5
+  Total space used: 12M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_5/subsubdirectory_3
+  Total space used: 2.3M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_5/subsubdirectory_1
+  Total space used: 2.8M
+  Shortest file name length: 6, Longest file name length: 21
+Analyzing Directory: _Directory/subdirectory_5/subsubdirectory_2
+  Total space used: 3.5M
+  Shortest file name length: 6, Longest file name length: 21
